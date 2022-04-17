@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "MiTERAS KINTAI Helper",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "This extension enters break times in MiTERAS KINTAI.",
+    "description": "Extension description"
+  }
+}

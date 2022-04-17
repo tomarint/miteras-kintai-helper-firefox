@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "MiTERAS勤怠入力",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "MiTERAS勤怠の休憩時間を入力します。",
+    "description": "Extension description"
+  }
+}
