@@ -18,7 +18,7 @@
     // console.log(`enterTextToInput: ${text}`);
   }
 
-  function messageHandler(options: { breaktime1: number, breaktime3: number }): void {
+  function messageHandler(options: { breaktime1: number, breaktime2: number, breaktime3: number }): void {
     // console.log("messageHandler: ", options);
     const inputSelector: { [name: string]: string } = {
       workTimeIn: "#work-time-in",
@@ -49,8 +49,30 @@
       || !isNumeric(workTimeOut[1])
       || !isNumeric(workTimeOut[3])
       || !isNumeric(workTimeOut[4])) {
+      //
+      // 勤務時間が不正な値の場合、１回目と２回目の休憩時間を設定する
+      //
+      if (true) {
+        const breakTimeInMinute = options.breaktime1;
+        const breakTimeOutMinute = breakTimeInMinute + 45;
+        enterTextToInput(input["breakTime1In"], hhmm(breakTimeInMinute));
+        enterTextToInput(input["breakTime1Out"], hhmm(breakTimeOutMinute));
+      }
+      if (options.breaktime2 >= 0) {
+        const breakTimeInMinute = options.breaktime2;
+        const breakTimeOutMinute = breakTimeInMinute + 15;
+        enterTextToInput(input["breakTime2In"], hhmm(breakTimeInMinute));
+        enterTextToInput(input["breakTime2Out"], hhmm(breakTimeOutMinute));
+      }
+      else {
+        enterTextToInput(input["breakTime2In"], "");
+        enterTextToInput(input["breakTime2Out"], "");
+      }
+
+      input["breakTime1In"]?.focus();
       return;
     }
+
     let hour = Number(workTimeIn.substring(0, 2));
     let minute = Number(workTimeIn.substring(3, 5));
     const workTimeInMinute = hour * 60 + minute;
@@ -84,13 +106,21 @@
     breakTimeMinutes = Math.min(breakTimeMinutes, 15);
     if (breakTimeMinutes > 0) {
       let breakTimeInMinute = workTimeInMinute + elaspedTime;
+      if (options.breaktime2 >= 0) {
+        breakTimeInMinute = options.breaktime2;
+      }
       let breakTimeOutMinute = breakTimeInMinute + breakTimeMinutes;
-      if (workTimeOutMinute == breakTimeOutMinute) {
-        breakTimeInMinute -= 1;
-        breakTimeOutMinute -= 1;
+      if (workTimeOutMinute <= breakTimeOutMinute) {
+        const delta = breakTimeOutMinute - workTimeOutMinute + 1;
+        breakTimeInMinute -= delta;
+        breakTimeOutMinute -= delta;
       }
       enterTextToInput(input["breakTime2In"], hhmm(breakTimeInMinute));
       enterTextToInput(input["breakTime2Out"], hhmm(breakTimeOutMinute));
+    }
+    else {
+      enterTextToInput(input["breakTime2In"], "");
+      enterTextToInput(input["breakTime2Out"], "");
     }
 
     //
@@ -112,6 +142,10 @@
         enterTextToInput(input["breakTime3Out"], hhmm(breakTimeOutMinute));
       }
     }
+    else {
+      enterTextToInput(input["breakTime3In"], "");
+      enterTextToInput(input["breakTime3Out"], "");
+    }
 
     input["breakTime1In"]?.focus();
   }
@@ -120,10 +154,12 @@
       // console.log("request.message:", request.message);
       chrome.storage.sync.get({
         breaktime1: '705',
+        breaktime2: '-1',
         breaktime3: '0',
       }).then(function (items) {
         const options = {
           breaktime1: Number(items.breaktime1),
+          breaktime2: Number(items.breaktime2),
           breaktime3: Number(items.breaktime3),
         };
         messageHandler(options);
