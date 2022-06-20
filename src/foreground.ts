@@ -18,7 +18,7 @@
     // console.log(`enterTextToInput: ${text}`);
   }
 
-  function messageHandler(options: { breaktime1: number, breaktime2: number, breaktime3: number }): void {
+  function messageHandler(options: { breaktime1: number, breaktime2: number, breaktime3: number, loginButtonAnimation: number }): void {
     // console.log("messageHandler: ", options);
     const inputSelector: { [name: string]: string } = {
       workTimeIn: "#work-time-in",
@@ -152,15 +152,19 @@
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message === messageName) {
       // console.log("request.message:", request.message);
-      chrome.storage.sync.get({
-        breaktime1: '705',
-        breaktime2: '-1',
-        breaktime3: '0',
-      }).then(function (items) {
+      chrome.storage.sync.get(
+        {
+          breaktime1: '705',
+          breaktime2: '-1',
+          breaktime3: '0',
+          loginButtonAnimation: '0',
+        }
+      ).then(function (items) {
         const options = {
           breaktime1: Number(items.breaktime1),
           breaktime2: Number(items.breaktime2),
           breaktime3: Number(items.breaktime3),
+          loginButtonAnimation: Number(items.loginButtonAnimation),
         };
         messageHandler(options);
         sendResponse({ message: "success" });
@@ -171,4 +175,29 @@
       return true;
     }
   });
+  function stopLoginButtonAnimation() {
+    chrome.storage.sync.get(
+      {
+        breaktime1: '705',
+        breaktime2: '-1',
+        breaktime3: '0',
+        loginButtonAnimation: '0',
+      }
+    ).then(function (items) {
+      const options = {
+        breaktime1: Number(items.breaktime1),
+        breaktime2: Number(items.breaktime2),
+        breaktime3: Number(items.breaktime3),
+        loginButtonAnimation: Number(items.loginButtonAnimation),
+      };
+      if (options.loginButtonAnimation !== 1) {
+        let style = document.createElement("style");
+        style.innerHTML = `.login-button { transition: none !important; }`;
+        document.head.appendChild(style);
+      }
+    }).catch(function (error) {
+      // console.log(error);
+    });
+  }
+  stopLoginButtonAnimation();
 })();

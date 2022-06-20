@@ -48,16 +48,19 @@
       const isMatched = this.tabManager.queryTab(tabId);
       // console.log(`updateContextMenus - ${isMatched}`);
       if (isMatched) {
-        chrome.contextMenus.create({
-          id: this.contextMenuId,
-          title: chrome.i18n.getMessage("extName"),
-          contexts: ["page"]
-        }, () => {
-          if (chrome.runtime.lastError) {
-            // console.log(chrome.runtime.lastError);
-            return;
+        chrome.contextMenus.create(
+          {
+            id: this.contextMenuId,
+            title: chrome.i18n.getMessage("extName"),
+            contexts: ["page"]
+          },
+          () => {
+            if (chrome.runtime.lastError) {
+              // console.log(chrome.runtime.lastError);
+              return;
+            }
           }
-        });
+        );
       }
       else {
         chrome.contextMenus.remove(this.contextMenuId, () => {
@@ -90,12 +93,10 @@
             ).then((value: any[]) => {
               if (chrome.runtime.lastError) {
                 // console.log(chrome.runtime.lastError);
-                return;
               }
             }).catch((reason: any) => {
               if (chrome.runtime.lastError) {
                 // console.log(chrome.runtime.lastError);
-                return;
               }
             })
           }

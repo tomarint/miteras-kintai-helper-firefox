@@ -16,6 +16,7 @@
     "@types/chrome": "^0.0.181",
     "@webpack-cli/generators": "^2.4.2",
     "copy-webpack-plugin": "^10.2.4",
+    "css-minimizer-webpack-plugin": "^4.0.0",
     "html-minimizer-webpack-plugin": "^3.5.0",
     "terser-webpack-plugin": "^5.3.1",
     "ts-loader": "^9.2.8",
