@@ -26,7 +26,7 @@
     "contextMenus",
     "storage"
   ],
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
       "id": "{9d30ded4-39c1-4476-95e8-87c2ce826b9a}"
     }
