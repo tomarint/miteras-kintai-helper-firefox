@@ -12,6 +12,7 @@
     "watch": "webpack --watch",
     "clean": "rm -rf ./dist/ && mkdir ./dist"
   },
+  "description": "This is a firefox extension that enters break times in MiTERAS KINTAI.",
   "devDependencies": {
     "@types/chrome": "^0.0.217",
     "@webpack-cli/generators": "^3.0.1",
@@ -23,6 +24,5 @@
     "typescript": "^4.9.5",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
-  },
-  "description": "This is a firefox extension that enters break times in MiTERAS KINTAI."
+  }
 }
