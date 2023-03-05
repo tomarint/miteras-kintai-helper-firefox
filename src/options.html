@@ -1,91 +1,105 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MiTERAS勤怠入力 オプション</title>
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MiTERAS勤怠入力 オプション</title>
-  <link rel="stylesheet" href="bootstrap.min.css" />
-  <link rel="stylesheet" href="style.css" />
-</head>
+  <body class="py-4">
+    <main>
+      <div class="container-fluid bg-body">
+        <div class="card rounded-3 shadow">
+          <div class="card-header py-3 fs-4">MiTERAS勤怠入力 オプション</div>
+          <div class="card-body">
+            <div class="row mt-2">
+              <div class="col-sm-4 my-1 d-flex align-items-center">
+                <label for="breaktime1Select">1回目の休憩時間:</label>
+              </div>
+              <div class="col-sm-8">
+                <select
+                  id="breaktime1Select"
+                  name="breaktime1Select"
+                  class="form-select"
+                >
+                  <option value="690">11:30 - 12:15</option>
+                  <option value="705">11:45 - 12:30</option>
+                  <option value="720">12:00 - 12:45</option>
+                  <option value="735">12:15 - 13:00</option>
+                  <option value="750">12:30 - 13:15</option>
+                  <option value="765">12:45 - 13:30</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-sm-4 my-1 d-flex align-items-center">
+                <label for="breaktime2Select">2回目の休憩時間:</label>
+              </div>
+              <div class="col-sm-8">
+                <select
+                  id="breaktime2Select"
+                  name="breaktime2Select"
+                  class="form-select"
+                >
+                  <option value="-1">自動</option>
+                  <option value="990">16:30 - 16:45</option>
+                  <option value="1005">16:45 - 17:00</option>
+                  <option value="1020">17:00 - 17:15</option>
+                  <option value="1035">17:15 - 17:30</option>
+                  <option value="1050">17:30 - 17:45</option>
+                  <option value="1065">17:45 - 18:00</option>
+                  <option value="1080">18:00 - 18:15</option>
+                  <option value="1095">18:15 - 18:30</option>
+                  <option value="1110">18:30 - 18:45</option>
+                  <option value="1125">18:45 - 19:00</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-sm-4 my-1 d-flex align-items-center">
+                <label for="breaktime3Select">3回目の休憩時間:</label>
+              </div>
+              <div class="col-sm-8">
+                <select
+                  id="breaktime3Select"
+                  name="breaktime3Select"
+                  class="form-select"
+                >
+                  <option value="1">取得する</option>
+                  <option value="0">取得しない</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-sm-7 my-1 d-flex align-items-center">
+                <label for="loginButtonAnimationSelect"
+                  >ログインボタンのアニメーション:</label
+                >
+              </div>
+              <div class="col-sm-5">
+                <select
+                  id="loginButtonAnimationSelect"
+                  name="loginButtonAnimationSelect"
+                  class="form-select"
+                >
+                  <option value="1">する</option>
+                  <option value="0">しない</option>
+                </select>
+              </div>
+            </div>
 
-<body class="py-4">
-  <main>
-    <div class="container-fluid bg-body">
-      <div class="card rounded-3 shadow">
-        <div class="card-header py-3 fs-4">
-          MiTERAS勤怠入力 オプション
-        </div>
-        <div class="card-body">
-          <div class="row mt-2">
-            <div class="col-sm-4 my-1 d-flex align-items-center">
-              <label for="breaktime1Select">1回目の休憩時間:</label>
-            </div>
-            <div class="col-sm-8">
-              <select id="breaktime1Select" name="breaktime1Select" class="form-select">
-                <option value="690">11:30 - 12:15</option>
-                <option value="705">11:45 - 12:30</option>
-                <option value="720">12:00 - 12:45</option>
-                <option value="735">12:15 - 13:00</option>
-                <option value="750">12:30 - 13:15</option>
-                <option value="765">12:45 - 13:30</option>
-              </select>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-sm-4 my-1 d-flex align-items-center">
-              <label for="breaktime2Select">2回目の休憩時間:</label>
-            </div>
-            <div class="col-sm-8">
-              <select id="breaktime2Select" name="breaktime2Select" class="form-select">
-                <option value="-1">自動</option>
-                <option value="990">16:30 - 16:45</option>
-                <option value="1005">16:45 - 17:00</option>
-                <option value="1020">17:00 - 17:15</option>
-                <option value="1035">17:15 - 17:30</option>
-                <option value="1050">17:30 - 17:45</option>
-                <option value="1065">17:45 - 18:00</option>
-                <option value="1080">18:00 - 18:15</option>
-                <option value="1095">18:15 - 18:30</option>
-                <option value="1110">18:30 - 18:45</option>
-                <option value="1125">18:45 - 19:00</option>
-              </select>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-sm-4 my-1 d-flex align-items-center">
-              <label for="breaktime3Select">3回目の休憩時間:</label>
-            </div>
-            <div class="col-sm-8">
-              <select id="breaktime3Select" name="breaktime3Select" class="form-select">
-                <option value="1">取得する</option>
-                <option value="0">取得しない</option>
-              </select>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-sm-7 my-1 d-flex align-items-center">
-              <label for="loginButtonAnimationSelect">ログインボタンのアニメーション:</label>
-            </div>
-            <div class="col-sm-5">
-              <select id="loginButtonAnimationSelect" name="loginButtonAnimationSelect" class="form-select">
-                <option value="1">する</option>
-                <option value="0">しない</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="row mt-4">
-            <div class="col-sm-4">
-              <button id="save" class="btn btn-primary"> Save </button>
-              <span id="status" class="ms-2"></span>
+            <div class="row mt-4">
+              <div class="col-sm-4">
+                <button id="save" class="btn btn-primary">Save</button>
+                <span id="status" class="ms-2"></span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
-  <script src="options.js"></script>
-</body>
-
+    </main>
+    <script src="options.js"></script>
+  </body>
 </html>
