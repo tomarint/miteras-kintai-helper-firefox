@@ -14,7 +14,7 @@
   },
   "description": "This is a firefox extension that enters break times in MiTERAS KINTAI.",
   "devDependencies": {
-    "@types/chrome": "^0.0.217",
+    "@types/chrome": "^0.0.219",
     "@webpack-cli/generators": "^3.0.1",
     "copy-webpack-plugin": "^11.0.0",
     "css-minimizer-webpack-plugin": "^4.2.2",
