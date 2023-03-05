@@ -1,15 +1,18 @@
 (function () {
-  'use strict';
+  "use strict";
   const messageName = "miteras-kintai-helper-message";
   function isNumeric(c: string): boolean {
-    return c >= '0' && c <= '9';
+    return c >= "0" && c <= "9";
   }
   function hhmm(minute: number): string {
     const m = minute % 60;
     const h = (minute - m) / 60;
-    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+    return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
   }
-  function enterTextToInput(input: HTMLInputElement | null, text: string): void {
+  function enterTextToInput(
+    input: HTMLInputElement | null,
+    text: string
+  ): void {
     if (input == null) {
       return;
     }
@@ -18,17 +21,28 @@
     // console.log(`enterTextToInput: ${text}`);
   }
 
-  function messageHandler(options: { breaktime1: number, breaktime2: number, breaktime3: number, loginButtonAnimation: number }): void {
+  function messageHandler(options: {
+    breaktime1: number;
+    breaktime2: number;
+    breaktime3: number;
+    loginButtonAnimation: number;
+  }): void {
     // console.log("messageHandler: ", options);
     const inputSelector: { [name: string]: string } = {
       workTimeIn: "#work-time-in",
       workTimeOut: "#work-time-out",
-      breakTime1In: "#breaktime1 > td > input.formsTxtBox.formsTxtBox--time.break-time-input.time-input.work-time-in",
-      breakTime1Out: "#breaktime1 > td > input.formsTxtBox.formsTxtBox--time.break-time-input.time-input.work-time-out",
-      breakTime2In: "#breaktime2 > td > input.formsTxtBox.formsTxtBox--time.break-time-input.time-input.work-time-in",
-      breakTime2Out: "#breaktime2 > td > input.formsTxtBox.formsTxtBox--time.break-time-input.time-input.work-time-out",
-      breakTime3In: "#breaktime3 > td > input.formsTxtBox.formsTxtBox--time.break-time-input.time-input.work-time-in",
-      breakTime3Out: "#breaktime3 > td > input.formsTxtBox.formsTxtBox--time.break-time-input.time-input.work-time-out",
+      breakTime1In:
+        "#breaktime1 > td > input.formsTxtBox.formsTxtBox--time.break-time-input.time-input.work-time-in",
+      breakTime1Out:
+        "#breaktime1 > td > input.formsTxtBox.formsTxtBox--time.break-time-input.time-input.work-time-out",
+      breakTime2In:
+        "#breaktime2 > td > input.formsTxtBox.formsTxtBox--time.break-time-input.time-input.work-time-in",
+      breakTime2Out:
+        "#breaktime2 > td > input.formsTxtBox.formsTxtBox--time.break-time-input.time-input.work-time-out",
+      breakTime3In:
+        "#breaktime3 > td > input.formsTxtBox.formsTxtBox--time.break-time-input.time-input.work-time-in",
+      breakTime3Out:
+        "#breaktime3 > td > input.formsTxtBox.formsTxtBox--time.break-time-input.time-input.work-time-out",
     };
     let input: { [name: string]: HTMLInputElement | null } = {};
     Object.entries(inputSelector).forEach(([key, value]) => {
@@ -41,14 +55,16 @@
       return;
     }
     // console.log(`勤務時間: ${workTimeIn} - ${workTimeOut}`)
-    if (!isNumeric(workTimeIn[0])
-      || !isNumeric(workTimeIn[1])
-      || !isNumeric(workTimeIn[3])
-      || !isNumeric(workTimeIn[4])
-      || !isNumeric(workTimeOut[0])
-      || !isNumeric(workTimeOut[1])
-      || !isNumeric(workTimeOut[3])
-      || !isNumeric(workTimeOut[4])) {
+    if (
+      !isNumeric(workTimeIn[0]) ||
+      !isNumeric(workTimeIn[1]) ||
+      !isNumeric(workTimeIn[3]) ||
+      !isNumeric(workTimeIn[4]) ||
+      !isNumeric(workTimeOut[0]) ||
+      !isNumeric(workTimeOut[1]) ||
+      !isNumeric(workTimeOut[3]) ||
+      !isNumeric(workTimeOut[4])
+    ) {
       //
       // 勤務時間が不正な値の場合、１回目と２回目の休憩時間を設定する
       //
@@ -63,8 +79,7 @@
         const breakTimeOutMinute = breakTimeInMinute + 15;
         enterTextToInput(input["breakTime2In"], hhmm(breakTimeInMinute));
         enterTextToInput(input["breakTime2Out"], hhmm(breakTimeOutMinute));
-      }
-      else {
+      } else {
         enterTextToInput(input["breakTime2In"], "");
         enterTextToInput(input["breakTime2Out"], "");
       }
@@ -91,7 +106,10 @@
     breakTimeMinutes = Math.min(breakTimeMinutes, 45);
     if (breakTimeMinutes > 0) {
       // console.log("options.breaktime1", options.breaktime1);
-      const breakTimeInMinute = Math.max(options.breaktime1, workTimeInMinute + 1);
+      const breakTimeInMinute = Math.max(
+        options.breaktime1,
+        workTimeInMinute + 1
+      );
       const breakTimeOutMinute = breakTimeInMinute + breakTimeMinutes;
       enterTextToInput(input["breakTime1In"], hhmm(breakTimeInMinute));
       enterTextToInput(input["breakTime1Out"], hhmm(breakTimeOutMinute));
@@ -117,8 +135,7 @@
       }
       enterTextToInput(input["breakTime2In"], hhmm(breakTimeInMinute));
       enterTextToInput(input["breakTime2Out"], hhmm(breakTimeOutMinute));
-    }
-    else {
+    } else {
       enterTextToInput(input["breakTime2In"], "");
       enterTextToInput(input["breakTime2Out"], "");
     }
@@ -141,8 +158,7 @@
         enterTextToInput(input["breakTime3In"], hhmm(breakTimeInMinute));
         enterTextToInput(input["breakTime3Out"], hhmm(breakTimeOutMinute));
       }
-    }
-    else {
+    } else {
       enterTextToInput(input["breakTime3In"], "");
       enterTextToInput(input["breakTime3Out"], "");
     }
@@ -152,52 +168,28 @@
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message === messageName) {
       // console.log("request.message:", request.message);
-      chrome.storage.sync.get(
-        {
-          breaktime1: '705',
-          breaktime2: '-1',
-          breaktime3: '0',
-          loginButtonAnimation: '0',
-        }
-      ).then(function (items) {
-        const options = {
-          breaktime1: Number(items.breaktime1),
-          breaktime2: Number(items.breaktime2),
-          breaktime3: Number(items.breaktime3),
-          loginButtonAnimation: Number(items.loginButtonAnimation),
-        };
-        messageHandler(options);
-        sendResponse({ message: "success" });
-      }).catch(function (error) {
-        // console.log(error);
-        sendResponse({ message: "error" });
-      });
+      chrome.storage.sync
+        .get({
+          breaktime1: "705",
+          breaktime2: "-1",
+          breaktime3: "0",
+          loginButtonAnimation: "0",
+        })
+        .then(function (items) {
+          const options = {
+            breaktime1: Number(items.breaktime1),
+            breaktime2: Number(items.breaktime2),
+            breaktime3: Number(items.breaktime3),
+            loginButtonAnimation: Number(items.loginButtonAnimation),
+          };
+          messageHandler(options);
+          sendResponse({ message: "success" });
+        })
+        .catch(function (error) {
+          console.log(error);
+          sendResponse({ message: "error" });
+        });
       return true;
     }
   });
-  function stopLoginButtonAnimation() {
-    chrome.storage.sync.get(
-      {
-        breaktime1: '705',
-        breaktime2: '-1',
-        breaktime3: '0',
-        loginButtonAnimation: '0',
-      }
-    ).then(function (items) {
-      const options = {
-        breaktime1: Number(items.breaktime1),
-        breaktime2: Number(items.breaktime2),
-        breaktime3: Number(items.breaktime3),
-        loginButtonAnimation: Number(items.loginButtonAnimation),
-      };
-      if (options.loginButtonAnimation !== 1) {
-        let style = document.createElement("style");
-        style.innerHTML = `.login-button { transition: none !important; }`;
-        document.head.appendChild(style);
-      }
-    }).catch(function (error) {
-      // console.log(error);
-    });
-  }
-  stopLoginButtonAnimation();
 })();

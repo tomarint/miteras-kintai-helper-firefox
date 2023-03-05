@@ -1,7 +1,17 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "__MSG_extName__",
   "version": "1.0.7",
+  "action": {
+    "default_icon": {
+      "16": "images/icon16.png",
+      "24": "images/icon24.png",
+      "32": "images/icon32.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    },
+    "default_title": "__MSG_extName__"
+  },
   "default_locale": "en",
   "description": "__MSG_extDescription__",
   "icons": {
@@ -11,20 +21,37 @@
     "48": "images/icon48.png",
     "128": "images/icon128.png"
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://kintai.miteras.jp/*/work-condition"
+      ],
+      "js": [
+        "content_event.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://kintai.miteras.jp/*"
+      ],
+      "js": [
+        "content_style.js"
+      ]
+    }
+  ],
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "scripts": ["background.js"]
   },
   "options_ui": {
-    "page": "options.html",
-    "open_in_tab": false
+    "page": "options.html"
   },
   "permissions": [
-    "https://kintai.miteras.jp/*",
     "tabs",
     "contextMenus",
     "storage"
+  ],
+  "host_permissions": [
+    "https://kintai.miteras.jp/*/work-condition"
   ],
   "browser_specific_settings": {
     "gecko": {
